@@ -1,0 +1,12 @@
+# Mengaktifkan URL Rewriting
+RewriteEngine On
+
+# Base directory (opsional, sesuaikan jika aplikasinya tidak di root)
+RewriteBase /
+
+# Jika file atau direktori yang diminta tidak ada
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Arahkan semua permintaan ke index.php
+RewriteRule ^(.*)$ index.php [L]
