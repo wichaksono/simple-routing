@@ -11,6 +11,16 @@
  * ==============================================================================
  */
 
+function get_file_name(string $filename):string
+{
+    // file name with .php
+    if (substr($filename, -4) !== '.php') {
+        $filename .= '.php';
+    }
+
+    return $filename;
+}
+
 /**
  * Check if file exists
  *
@@ -25,12 +35,9 @@
  */
 function check_file_is_exists(string $filename): bool
 {
-    // file name with .php
-    if (substr($filename, -4) !== '.php') {
-        $filename .= '.php';
-    }
 
-    return file_exists($filename);
+
+    return file_exists(get_file_name($filename));
 }
 
 /**
@@ -56,6 +63,7 @@ function check_file_is_exists(string $filename): bool
  */
 function include_file(string $filename, array $args = []): void
 {
+    $filename = get_file_name($filename);
     if (check_file_is_exists($filename)) {
         include $filename;
     } else {
@@ -86,6 +94,7 @@ function include_file(string $filename, array $args = []): void
  */
 function include_file_once(string $filename, array $args = []): void
 {
+    $filename = get_file_name($filename);
     if (check_file_is_exists($filename)) {
         include_once $filename;
     } else {
