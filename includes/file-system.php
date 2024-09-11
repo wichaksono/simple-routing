@@ -26,13 +26,12 @@
 function check_file_is_exists(string $filename): bool
 {
     // file name with .php
-    if ( ! str_ends_with($filename, '.php')) {
+    if (substr($filename, -4) !== '.php') {
         $filename .= '.php';
     }
 
     return file_exists($filename);
 }
-
 
 /**
  * Include file if exists
@@ -106,7 +105,7 @@ function include_file_once(string $filename, array $args = []): void
  * @param string $directory
  * @param string $extension
  */
-function include_files(string $directory, string $extension = 'php'):void
+function include_files(string $directory, string $extension = 'php'): void
 {
     $files = glob($directory . '/*.' .$extension);
     foreach ($files as $file) {
@@ -137,9 +136,9 @@ function set_log(string $message): void
  *
  * @return array
  */
-function get_log():array
+function get_log(): array
 {
-    return file(LOG_FILE, FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
+    return file(LOG_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 }
 
 /**
@@ -158,7 +157,7 @@ define('CACHE_EXT', '.cache');
  * @param int $expires
  * @return bool
  */
-function cache_set(string $key, mixed $value, int $expires = 0): bool
+function cache_set(string $key, $value, int $expires = 0): bool
 {
     $filePath = CACHE_DIR . $key . CACHE_EXT;
 
@@ -180,9 +179,9 @@ function cache_set(string $key, mixed $value, int $expires = 0): bool
  * @param string $key
  * @return mixed
  */
-function cache_get(string $key): mixed
+function cache_get(string $key)
 {
-    $filePath = CACHE_DIR . $key .CACHE_EXT;
+    $filePath = CACHE_DIR . $key . CACHE_EXT;
 
     if (check_file_is_exists($filePath)) {
         $data = unserialize(file_get_contents($filePath));
